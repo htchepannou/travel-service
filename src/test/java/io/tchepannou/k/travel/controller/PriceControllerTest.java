@@ -1,6 +1,7 @@
 package io.tchepannou.k.travel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.tchepannou.k.travel.client.request.SearchPriceRequest;
 import io.tchepannou.k.travel.client.request.SetPriceRequest;
 import io.tchepannou.k.travel.client.response.SetPriceResponse;
 import io.tchepannou.k.travel.dao.PriceDao;
@@ -21,9 +22,11 @@ import org.springframework.web.context.WebApplicationContext;
 import javax.sql.DataSource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -94,7 +97,7 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[0].productId", is(300)))
                 .andExpect(jsonPath("$.prices[0].amount", is(311.0)))
                 .andExpect(jsonPath("$.prices[0].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[0].fromDate", is("2017-01-02")))
+                .andExpect(jsonPath("$.prices[0].fromDate", is("2017-01-01")))
                 .andExpect(jsonPath("$.prices[0].toDate", is("2017-04-05")))
                 .andExpect(jsonPath("$.prices[0].priceType.id", is(1)))
                 .andExpect(jsonPath("$.prices[0].priceType.name", is("ONE_WAY")))
@@ -111,6 +114,7 @@ public class PriceControllerTest {
     }
 
 
+    // CREATE
     @Test
     public void shouldCreatePrice() throws Exception {
         // Given
@@ -148,6 +152,9 @@ public class PriceControllerTest {
         assertThat(price.getProductId()).isEqualTo(200);
     }
 
+
+
+    // UPDATE
     @Test
     public void shouldUpdatePrice() throws Exception {
         // Given
@@ -206,7 +213,6 @@ public class PriceControllerTest {
                 ;
     }
 
-
     @Test
     public void shouldReturn400WhenSettingPriceWithInvalidPriceType() throws Exception {
         // Given
@@ -225,6 +231,130 @@ public class PriceControllerTest {
 
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isBadRequest())
+        ;
+    }
+
+
+    // SEARCH
+    @Test
+    public void searchPricesHappyPath () throws Exception{
+        // Given
+        final SearchPriceRequest req = new SearchPriceRequest();
+        req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
+        req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
+        req.setDepartureDate("2017-02-02");
+
+        // When
+        final String jsonRequest = mapper.writeValueAsString(req);
+        mockMvc
+                .perform(
+                        post("/travel/v1/prices/search")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(jsonRequest)
+                )
+
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.prices.length()", is(6)))
+                .andExpect(jsonPath("$..id", hasItems(1001, 1002, 2001, 2002, 3001, 3002)))
+        ;
+    }
+
+
+    @Test
+    public void searchPricesDepartureLowerBound () throws Exception{
+        // Given
+        final SearchPriceRequest req = new SearchPriceRequest();
+        req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
+        req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
+        req.setDepartureDate("2017-01-02");
+
+        // When
+        final String jsonRequest = mapper.writeValueAsString(req);
+        mockMvc
+                .perform(
+                        post("/travel/v1/prices/search")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonRequest)
+                )
+
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.prices.length()", is(4)))
+                .andExpect(jsonPath("$..id", hasItems(1001, 2001, 2002, 3001)))
+        ;
+    }
+
+    @Test
+    public void searchPricesDepartureUpperBound () throws Exception{
+        // Given
+        final SearchPriceRequest req = new SearchPriceRequest();
+        req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
+        req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
+        req.setDepartureDate("2017-05-16");
+
+        // When
+        final String jsonRequest = mapper.writeValueAsString(req);
+        mockMvc
+                .perform(
+                        post("/travel/v1/prices/search")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonRequest)
+                )
+
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.prices.length()", is(3)))
+                .andExpect(jsonPath("$..id", hasItems(2001, 2002, 3002)))
+        ;
+    }
+
+    @Test
+    public void searchPricesDepartureBelowLowerBound () throws Exception{
+        // Given
+        final SearchPriceRequest req = new SearchPriceRequest();
+        req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
+        req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
+        req.setDepartureDate("2017-01-01");
+
+        // When
+        final String jsonRequest = mapper.writeValueAsString(req);
+        mockMvc
+                .perform(
+                        post("/travel/v1/prices/search")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonRequest)
+                )
+
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.prices.length()", is(2)))
+                .andExpect(jsonPath("$..id", hasItems(2001, 2002)))
+        ;
+    }
+
+
+    @Test
+    public void searchPricesDepartureAboveUpperBound () throws Exception{
+        // Given
+        final SearchPriceRequest req = new SearchPriceRequest();
+        req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
+        req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
+        req.setDepartureDate("2020-01-01");
+
+        // When
+        final String jsonRequest = mapper.writeValueAsString(req);
+        mockMvc
+                .perform(
+                        post("/travel/v1/prices/search")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(jsonRequest)
+                )
+
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.prices.length()", is(2)))
+                .andExpect(jsonPath("$..id", hasItems(2001, 2002)))
         ;
     }
 }

@@ -16,7 +16,7 @@ public class PriceSearchQueryBuilder {
         final List<String> predicates = new ArrayList<>();
 
         predicates.add(predicate("travel_product_fk", request.getProductIds()));
-        predicates.add(predicate("price_type_name", request.getPriceTypeNames()));
+        predicates.add(predicate("UCASE(T.name)", request.getPriceTypeNames()));
         if (request.getDepartureDate() != null) {
             predicates.add("(from_date IS NULL OR from_date<=?) AND (to_date IS NULL OR to_date>=?)");
         }
@@ -25,16 +25,21 @@ public class PriceSearchQueryBuilder {
                 .filter(p -> p != null)
                 .collect(Collectors.toList());
 
-        final String sql = "SELECT P.*, T.name AS price_type_name"
-                + " FROM T_PRICE P JOIN T_PRICE_TYPE T ON P.t_price_type_fk=T.id";
-
-        return where.isEmpty() ? sql : sql + " WHERE " + Joiner.on(" AND ").join(where);
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT P.*, T.name FROM T_PRICE P JOIN T_PRICE_TYPE T ON P.price_type_fk=T.id");
+        if (!where.isEmpty()){
+            sql
+                    .append(" WHERE ")
+                    .append(Joiner.on(" AND ").join(where));
+        }
+        sql.append(" ORDER BY P.id, P.price_type_fk");
+        return sql.toString();
     }
 
     public Object[] toArgs(SearchPriceRequest request){
         final List args = new ArrayList();
         addAll(request.getProductIds(), args);
-        addAll(request.getProductIds(), args);
+        addAll(request.getPriceTypeNames().stream().map(n -> n.toUpperCase()).collect(Collectors.toList()), args);
 
         final String departureDate = request.getDepartureDate();
         if (departureDate != null) {
