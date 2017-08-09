@@ -146,6 +146,7 @@ public class ProductControllerValidationTest {
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
+        System.out.println("JSON=" + jsonRequest);
         mockMvc
                 .perform(
                         post("/travel/v1/product/500/schedule")

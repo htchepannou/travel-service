@@ -51,6 +51,7 @@ public class PriceSearchQueryBuilder {
         }
         return String.format("%s IN (%s)", column, toParams(values));
     }
+
     private String toParams(List values){
         return Joiner.on(",").join(
                 (List)values.stream().map(i -> "?").collect(Collectors.toList())
