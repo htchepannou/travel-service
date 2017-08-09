@@ -2,9 +2,9 @@ package io.tchepannou.k.travel.client.response;
 
 import java.sql.Date;
 
-public class Price {
+public class PriceDTO {
     private Integer id;
-    private PriceType priceType;
+    private PriceTypeDTO priceType;
     private Integer productId;
     private Double amount;
     private String currencyCode;
@@ -19,11 +19,11 @@ public class Price {
         this.id = id;
     }
 
-    public PriceType getPriceType() {
+    public PriceTypeDTO getPriceType() {
         return priceType;
     }
 
-    public void setPriceType(final PriceType priceType) {
+    public void setPriceType(final PriceTypeDTO priceType) {
         this.priceType = priceType;
     }
 

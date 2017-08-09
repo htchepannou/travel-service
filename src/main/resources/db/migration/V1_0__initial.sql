@@ -64,7 +64,7 @@ CREATE TABLE T_PRICE (
 
 
 
-CREATE TABLE T_ACCOMODATION_CLASS (
+CREATE TABLE T_TRAVEL_ASSET_TYPE (
   id          INT          NOT NULL AUTO_INCREMENT,
   name        VARCHAR(64),
   description TEXT,
@@ -72,7 +72,7 @@ CREATE TABLE T_ACCOMODATION_CLASS (
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 
-CREATE TABLE T_TRAVEL_ASSET_TYPE (
+CREATE TABLE T_ACCOMODATION_CLASS (
   id          INT          NOT NULL AUTO_INCREMENT,
   name        VARCHAR(64),
   description TEXT,
@@ -93,13 +93,18 @@ CREATE TABLE T_TRAVEL_ASSET_TYPE_ACCOMODATION_CLASS (
 ) ENGINE = InnoDB;
 
 
+
+
+
 CREATE TABLE T_TRAVEL_ASSET (
   id                      INT     NOT NULL AUTO_INCREMENT,
 
   travel_asset_type_fk    INT     NOT NULL REFERENCES T_TRAVEL_ASSET_TYPE(id),
   travel_provider_fk      INT     NOT NULL,
 
-  name                    VARCHAR(100),
+  immatriculation_number  VARCHAR(30),
+  model                   VARCHAR(100),
+  year                    INT,
   description             TEXT,
 
   PRIMARY KEY (id)
@@ -137,11 +142,12 @@ CREATE TABLE T_SCHEDULED_TRANSPORTATION_OFFER (
   scheduled_transportation_fk   INT NOT NULL REFERENCES T_SCHEDULED_TRANSPORTATION_OFFER(id),
   accomodation_class_fk         INT REFERENCES T_ACCOMODATION_CLASS(id),
 
-  number_of_space         INT,
+  capacily                INT,
 
   UNIQUE (scheduled_transportation_fk, accomodation_class_fk),
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
+
 
 
 ---- DATA
@@ -150,11 +156,6 @@ INSERT INTO T_PRICE_TYPE(id, name) VALUES(2, 'RETURN');
 
 INSERT INTO T_TRAVEL_PRODUCT_TYPE(id, name) VALUES(100, 'BUS_SEAT');
 
-INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(100, 'BUS');
-INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(200, 'AIR');
-INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(300, 'TRAIN');
-INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(400, 'CAR');
-
 INSERT INTO T_ACCOMODATION_CLASS(id, name) VALUES(201, 'COACH');
 INSERT INTO T_ACCOMODATION_CLASS(id, name) VALUES(202, 'BUSINESS');
 INSERT INTO T_ACCOMODATION_CLASS(id, name) VALUES(203, 'FIRST');
@@ -162,3 +163,9 @@ INSERT INTO T_ACCOMODATION_CLASS(id, name) VALUES(203, 'FIRST');
 INSERT INTO T_TRAVEL_ASSET_TYPE_ACCOMODATION_CLASS(travel_asset_type_fk, accomodation_class_fk, rank) VALUES (200, 201, 1);
 INSERT INTO T_TRAVEL_ASSET_TYPE_ACCOMODATION_CLASS(travel_asset_type_fk, accomodation_class_fk, rank) VALUES (200, 202, 2);
 INSERT INTO T_TRAVEL_ASSET_TYPE_ACCOMODATION_CLASS(travel_asset_type_fk, accomodation_class_fk, rank) VALUES (200, 203, 3);
+
+
+INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(100, 'BUS');
+INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(200, 'AIR');
+INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(300, 'TRAIN');
+INSERT INTO T_TRAVEL_ASSET_TYPE(id, name) VALUES(400, 'CAR');

@@ -1,5 +1,6 @@
 package io.tchepannou.k.travel.controller;
 
+import io.tchepannou.k.travel.client.response.ErrorDTO;
 import io.tchepannou.k.travel.client.response.ErrorResponse;
 import io.tchepannou.k.travel.exception.BusinessException;
 import io.tchepannou.k.travel.exception.BusinessErrors;
@@ -22,7 +23,7 @@ public class ControllerExceptionHandler {
         final ErrorResponse response = new ErrorResponse();
         final List<ObjectError> validationErrors = ex.getBindingResult().getAllErrors();
         for (ObjectError validationError : validationErrors){
-            io.tchepannou.k.travel.client.response.Error error;
+            ErrorDTO error;
             if (validationError instanceof FieldError){
                 final FieldError fieldError = (FieldError)validationError;
                 error = createError(
@@ -67,12 +68,12 @@ public class ControllerExceptionHandler {
         return response;
     }
 
-    private io.tchepannou.k.travel.client.response.Error createError(BusinessErrors code){
+    private ErrorDTO createError(BusinessErrors code){
         return createError(code.getCode(), code.getDescription());
     }
 
-    private io.tchepannou.k.travel.client.response.Error createError(String code, String description){
-        final io.tchepannou.k.travel.client.response.Error error = new io.tchepannou.k.travel.client.response.Error();
+    private ErrorDTO createError(String code, String description){
+        final ErrorDTO error = new ErrorDTO();
         error.setCode(code);
         error.setDescription(description);
         return error;

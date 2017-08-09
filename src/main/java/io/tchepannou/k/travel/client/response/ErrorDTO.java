@@ -19,7 +19,7 @@ import java.util.Map;
     "code",
     "description"
 })
-public class Error {
+public class ErrorDTO {
 
     @JsonProperty("code")
     private String code;
@@ -73,10 +73,10 @@ public class Error {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Error) == false) {
+        if ((other instanceof ErrorDTO) == false) {
             return false;
         }
-        Error rhs = ((Error) other);
+        ErrorDTO rhs = ((ErrorDTO) other);
         return new EqualsBuilder().append(code, rhs.code).append(description, rhs.description).append(additionalProperties, rhs.additionalProperties).isEquals();
     }
 

@@ -12,15 +12,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class GetProductResponse {
 
     @JsonProperty("product")
-    private Product product;
+    private ProductDTO product;
 
     @JsonProperty("product")
-    public Product getProduct() {
+    public ProductDTO getProduct() {
         return product;
     }
 
     @JsonProperty("product")
-    public void setProduct(final Product product) {
+    public void setProduct(final ProductDTO product) {
         this.product = product;
     }
 }

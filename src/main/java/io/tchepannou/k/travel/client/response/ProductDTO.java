@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Product {
+public class ProductDTO {
     @JsonProperty("id")
     private Integer id;
     @JsonProperty("name")
@@ -24,7 +24,7 @@ public class Product {
     @JsonProperty("destinationCityId")
     private Integer destinationCityId;
     @JsonProperty("productType")
-    private ProductType productType;
+    private ProductTypeDTO productType;
     @JsonProperty("schedule")
     private List<ScheduledTime> schedule = new ArrayList<>();
 
@@ -89,12 +89,12 @@ public class Product {
     }
 
     @JsonProperty("productType")
-    public ProductType getProductType() {
+    public ProductTypeDTO getProductType() {
         return productType;
     }
 
     @JsonProperty("productType")
-    public void setProductType(ProductType productType) {
+    public void setProductType(ProductTypeDTO productType) {
         this.productType = productType;
     }
 
@@ -124,10 +124,10 @@ public class Product {
         if (other == this) {
             return true;
         }
-        if ((other instanceof Product) == false) {
+        if ((other instanceof ProductDTO) == false) {
             return false;
         }
-        Product rhs = ((Product) other);
+        ProductDTO rhs = ((ProductDTO) other);
         return new EqualsBuilder().append(id, rhs.id).append(name, rhs.name).append(description, rhs.description).append(travelProviderId, rhs.travelProviderId).append(originCityId, rhs.originCityId).append(destinationCityId, rhs.destinationCityId).append(productType, rhs.productType).append(
                 schedule, rhs.schedule).isEquals();
     }
