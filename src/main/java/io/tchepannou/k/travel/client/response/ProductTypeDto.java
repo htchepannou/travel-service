@@ -14,7 +14,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
     "name",
     "description"
 })
-public class PriceTypeDTO {
+public class ProductTypeDto {
 
     @JsonProperty("id")
     private Integer id;
@@ -68,10 +68,10 @@ public class PriceTypeDTO {
         if (other == this) {
             return true;
         }
-        if ((other instanceof PriceTypeDTO) == false) {
+        if ((other instanceof ProductTypeDto) == false) {
             return false;
         }
-        PriceTypeDTO rhs = ((PriceTypeDTO) other);
+        ProductTypeDto rhs = ((ProductTypeDto) other);
         return new EqualsBuilder().append(id, rhs.id).append(name, rhs.name).append(description, rhs.description).isEquals();
     }
 

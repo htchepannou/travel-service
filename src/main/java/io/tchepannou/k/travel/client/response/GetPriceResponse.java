@@ -1,13 +1,13 @@
 package io.tchepannou.k.travel.client.response;
 
 public class GetPriceResponse {
-    private PriceDTO price;
+    private PriceDto price;
 
-    public PriceDTO getPrice() {
+    public PriceDto getPrice() {
         return price;
     }
 
-    public void setPrice(final PriceDTO price) {
+    public void setPrice(final PriceDto price) {
         this.price = price;
     }
 }

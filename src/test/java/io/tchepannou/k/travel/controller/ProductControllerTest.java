@@ -2,7 +2,7 @@ package io.tchepannou.k.travel.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.tchepannou.k.travel.client.request.CreateProductRequest;
-import io.tchepannou.k.travel.client.request.CreateProductResponse;
+import io.tchepannou.k.travel.client.response.CreateProductResponse;
 import io.tchepannou.k.travel.client.request.ScheduledTimeRequest;
 import io.tchepannou.k.travel.client.request.UpdateProductRequest;
 import io.tchepannou.k.travel.client.response.UpdateProductResponse;
@@ -11,7 +11,6 @@ import io.tchepannou.k.travel.dao.ScheduledTimeDao;
 import io.tchepannou.k.travel.domain.Product;
 import io.tchepannou.k.travel.domain.ScheduledTime;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ import javax.sql.DataSource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.TimeZone;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.is;

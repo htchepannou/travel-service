@@ -23,17 +23,17 @@ import java.util.Map;
 public class ErrorResponse {
 
     @JsonProperty("errors")
-    private List<ErrorDTO> errors = new ArrayList<ErrorDTO>();
+    private List<ErrorDto> errors = new ArrayList<ErrorDto>();
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     @JsonProperty("errors")
-    public List<ErrorDTO> getErrors() {
+    public List<ErrorDto> getErrors() {
         return errors;
     }
 
     @JsonProperty("errors")
-    public void setErrors(List<ErrorDTO> errors) {
+    public void setErrors(List<ErrorDto> errors) {
         this.errors = errors;
     }
 

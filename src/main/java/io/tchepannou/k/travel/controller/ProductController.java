@@ -3,7 +3,7 @@ package io.tchepannou.k.travel.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.tchepannou.k.travel.client.request.CreateProductRequest;
-import io.tchepannou.k.travel.client.request.CreateProductResponse;
+import io.tchepannou.k.travel.client.response.CreateProductResponse;
 import io.tchepannou.k.travel.client.request.ScheduledTimeRequest;
 import io.tchepannou.k.travel.client.request.SetPriceRequest;
 import io.tchepannou.k.travel.client.request.UpdateProductRequest;

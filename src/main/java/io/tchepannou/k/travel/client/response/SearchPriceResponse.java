@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchPriceResponse {
-    private List<PriceDTO> prices = new ArrayList();
+    private List<PriceDto> prices = new ArrayList();
 
-    public List<PriceDTO> getPrices() {
+    public List<PriceDto> getPrices() {
         return prices;
     }
 
-    public void setPrices(final List<PriceDTO> prices) {
+    public void setPrices(final List<PriceDto> prices) {
         this.prices = prices;
     }
 }

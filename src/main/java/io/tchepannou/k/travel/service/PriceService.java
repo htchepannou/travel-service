@@ -5,8 +5,8 @@ import io.tchepannou.k.travel.client.request.SearchPriceRequest;
 import io.tchepannou.k.travel.client.request.SetPriceRequest;
 import io.tchepannou.k.travel.client.response.GetPriceResponse;
 import io.tchepannou.k.travel.client.response.GetProductPricesResponse;
-import io.tchepannou.k.travel.client.response.PriceDTO;
-import io.tchepannou.k.travel.client.response.PriceTypeDTO;
+import io.tchepannou.k.travel.client.response.PriceDto;
+import io.tchepannou.k.travel.client.response.PriceTypeDto;
 import io.tchepannou.k.travel.client.response.SearchPriceResponse;
 import io.tchepannou.k.travel.client.response.SetPriceResponse;
 import io.tchepannou.k.travel.dao.PriceDao;
@@ -84,14 +84,14 @@ public class PriceService {
         final PriceType priceType = priceTypeDao.findOne(price.getPriceTypeId());
 
         final GetPriceResponse response = new GetPriceResponse();
-        final PriceTypeDTO priceTypeDto = toPriceTypeDto(priceType);
+        final PriceTypeDto priceTypeDto = toPriceTypeDto(priceType);
         response.setPrice(toPriceDto(price, priceTypeDto));
         return response;
     }
 
     public GetProductPricesResponse findByProductId (Integer productId){
         final List<Price> prices = priceDao.findByProductId(productId);
-        final Map<Integer, PriceTypeDTO> priceTypeDtoMap = toPriceTypeDtoMap(prices);
+        final Map<Integer, PriceTypeDto> priceTypeDtoMap = toPriceTypeDtoMap(prices);
 
         // Response
         final GetProductPricesResponse response = new GetProductPricesResponse();
@@ -108,7 +108,7 @@ public class PriceService {
         final JdbcTemplate jdbc = new JdbcTemplate(dataSource);
 
         final List<Price> prices = jdbc.query(sql, args, new PriceRowMapper());
-        final Map<Integer, PriceTypeDTO> priceTypeDtoMap = toPriceTypeDtoMap(prices);
+        final Map<Integer, PriceTypeDto> priceTypeDtoMap = toPriceTypeDtoMap(prices);
 
         final SearchPriceResponse response = new SearchPriceResponse();
         response.setPrices(
@@ -135,12 +135,12 @@ public class PriceService {
         }
     }
 
-    private Map<Integer, PriceTypeDTO> toPriceTypeDtoMap(List<Price> prices){
+    private Map<Integer, PriceTypeDto> toPriceTypeDtoMap(List<Price> prices){
         final Set<Integer> priceTypeIds = prices.stream()
                 .map(type -> type.getPriceTypeId())
                 .collect(Collectors.toSet());
         final List<PriceType> priceTypes = Lists.newArrayList(priceTypeDao.findAll(priceTypeIds));
-        final List<PriceTypeDTO> priceTypeDtos = priceTypes.stream()
+        final List<PriceTypeDto> priceTypeDtos = priceTypes.stream()
                 .map(type -> toPriceTypeDto(type))
                 .collect(Collectors.toList());
 
@@ -149,16 +149,16 @@ public class PriceService {
 
     }
 
-    private PriceTypeDTO toPriceTypeDto (final PriceType priceType){
-        final PriceTypeDTO dto = new PriceTypeDTO();
+    private PriceTypeDto toPriceTypeDto (final PriceType priceType){
+        final PriceTypeDto dto = new PriceTypeDto();
         dto.setDescription(priceType.getDescription());
         dto.setId(priceType.getId());
         dto.setName(priceType.getName());
         return dto;
     }
 
-    private PriceDTO toPriceDto (final Price price, final PriceTypeDTO priceType){
-        final PriceDTO dto = new PriceDTO();
+    private PriceDto toPriceDto (final Price price, final PriceTypeDto priceType){
+        final PriceDto dto = new PriceDto();
         dto.setAmount(price.getAmount());
         dto.setCurrencyCode(price.getCurrencyCode());
         dto.setFromDate(price.getFromDate());

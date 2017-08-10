@@ -1,12 +1,12 @@
 package io.tchepannou.k.travel.service;
 
 import io.tchepannou.k.travel.client.request.CreateProductRequest;
-import io.tchepannou.k.travel.client.request.CreateProductResponse;
+import io.tchepannou.k.travel.client.response.CreateProductResponse;
 import io.tchepannou.k.travel.client.request.ScheduledTimeRequest;
 import io.tchepannou.k.travel.client.request.UpdateProductRequest;
 import io.tchepannou.k.travel.client.response.GetProductResponse;
-import io.tchepannou.k.travel.client.response.ProductDTO;
-import io.tchepannou.k.travel.client.response.ProductTypeDTO;
+import io.tchepannou.k.travel.client.response.ProductDto;
+import io.tchepannou.k.travel.client.response.ProductTypeDto;
 import io.tchepannou.k.travel.client.response.UpdateProductResponse;
 import io.tchepannou.k.travel.dao.ProductDao;
 import io.tchepannou.k.travel.dao.ProductTypeDao;
@@ -85,12 +85,12 @@ public class ProductService {
         }
 
         final ProductType productType = productTypeDao.findOne(product.getTravelProductTypeId());
-        final ProductTypeDTO productTypeDto = new ProductTypeDTO();
+        final ProductTypeDto productTypeDto = new ProductTypeDto();
         productTypeDto.setDescription(productType.getDescription());
         productTypeDto.setId(productType.getId());
         productTypeDto.setName(productType.getName());
 
-        final ProductDTO productDto = new ProductDTO();
+        final ProductDto productDto = new ProductDto();
         productDto.setDescription(product.getDescription());
         productDto.setDestinationCityId(product.getDestinationCityId());
         productDto.setId(product.getId());

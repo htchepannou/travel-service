@@ -1,5 +1,5 @@
 
-package io.tchepannou.k.travel.client.request;
+package io.tchepannou.k.travel.client.response;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
