@@ -17,7 +17,6 @@ import io.tchepannou.k.travel.domain.Price;
 import io.tchepannou.k.travel.domain.PriceType;
 import io.tchepannou.k.travel.domain.Product;
 import io.tchepannou.k.travel.exception.BusinessErrors;
-import io.tchepannou.k.travel.exception.BusinessException;
 import io.tchepannou.k.travel.exception.InvalidRequestException;
 import io.tchepannou.k.travel.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +25,12 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import javax.transaction.Transactional;
-import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static io.tchepannou.k.travel.util.Converters.toTimestamp;
 
 @Component
 public class PriceService {
@@ -66,8 +63,8 @@ public class PriceService {
 
         price.setAmount(request.getAmount());
         price.setCurrencyCode(request.getCurrencyCode());
-        price.setFromDate(toDate(request.getFromDate(), BusinessErrors.INVALID_FROM_DATE_FORMAT));
-        price.setToDate(toDate(request.getToDate(), BusinessErrors.INVALID_FROM_DATE_FORMAT));
+        price.setFromDateTime(toTimestamp(request.getFromDateTime()));
+        price.setToDateTime(toTimestamp(request.getToDateTime()));
         priceDao.save(price);
 
         final SetPriceResponse response = new SetPriceResponse();
@@ -120,20 +117,6 @@ public class PriceService {
 
 
     //-- Private
-    private Date toDate (String value, BusinessErrors error){
-        if (value == null){
-            return null;
-        }
-        try {
-
-            final SimpleDateFormat fmt = new SimpleDateFormat(DATE_PATTERN, Locale.US);
-
-            return new Date(fmt.parse(value).getTime());
-
-        } catch (ParseException e){
-            throw new BusinessException(error);
-        }
-    }
 
     private Map<Integer, PriceTypeDto> toPriceTypeDtoMap(List<Price> prices){
         final Set<Integer> priceTypeIds = prices.stream()
@@ -161,11 +144,11 @@ public class PriceService {
         final PriceDto dto = new PriceDto();
         dto.setAmount(price.getAmount());
         dto.setCurrencyCode(price.getCurrencyCode());
-        dto.setFromDate(price.getFromDate());
+        dto.setFromDateTime(price.getFromDateTime());
         dto.setId(price.getId());
         dto.setProductId(price.getProductId());
         dto.setPriceType(priceType);
-        dto.setToDate(price.getToDate());
+        dto.setToDateTime(price.getToDateTime());
         return dto;
     }
 }

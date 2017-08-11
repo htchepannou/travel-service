@@ -2,6 +2,7 @@
 package io.tchepannou.k.travel.client.request;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 public class SearchPriceRequest {
@@ -12,7 +13,7 @@ public class SearchPriceRequest {
     private List<String> priceTypeNames;
 
     @NotNull
-    private String departureDate;
+    private Date departureDate;
 
     public List<Integer> getProductIds() {
         return productIds;
@@ -22,11 +23,11 @@ public class SearchPriceRequest {
         this.productIds = productIds;
     }
 
-    public String getDepartureDate() {
+    public Date getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(final String departureDate) {
+    public void setDepartureDate(final Date departureDate) {
         this.departureDate = departureDate;
     }
 

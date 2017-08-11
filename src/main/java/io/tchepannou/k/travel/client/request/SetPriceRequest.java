@@ -1,6 +1,7 @@
 package io.tchepannou.k.travel.client.request;
 
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 
 public class SetPriceRequest {
     @NotNull
@@ -9,9 +10,9 @@ public class SetPriceRequest {
     @NotNull
     private String currencyCode;
 
-    private String fromDate;
+    private Date fromDateTime;
 
-    private String toDate;
+    private Date toDateTime;
 
     public Double getAmount() {
         return amount;
@@ -29,19 +30,19 @@ public class SetPriceRequest {
         this.currencyCode = currencyCode;
     }
 
-    public String getFromDate() {
-        return fromDate;
+    public Date getFromDateTime() {
+        return fromDateTime;
     }
 
-    public void setFromDate(final String fromDate) {
-        this.fromDate = fromDate;
+    public void setFromDateTime(final Date fromDateTime) {
+        this.fromDateTime = fromDateTime;
     }
 
-    public String getToDate() {
-        return toDate;
+    public Date getToDateTime() {
+        return toDateTime;
     }
 
-    public void setToDate(final String toDate) {
-        this.toDate = toDate;
+    public void setToDateTime(final Date toDateTime) {
+        this.toDateTime = toDateTime;
     }
 }

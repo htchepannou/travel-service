@@ -14,8 +14,8 @@ public class PriceRowMapper implements RowMapper<Price> {
         price.setId(rs.getInt("id"));
         price.setProductId(rs.getInt("travel_product_fk"));
         price.setPriceTypeId(rs.getInt("price_type_fk"));
-        price.setToDate(rs.getDate("to_date"));
-        price.setFromDate(rs.getDate("from_date"));
+        price.setToDateTime(rs.getTimestamp("to_datetime"));
+        price.setFromDateTime(rs.getTimestamp("from_datetime"));
         price.setCurrencyCode(rs.getString("currency_code"));
         price.setAmount(rs.getDouble("amount"));
 

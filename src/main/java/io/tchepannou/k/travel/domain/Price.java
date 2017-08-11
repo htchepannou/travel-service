@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table( name = "T_PRICE")
@@ -26,11 +26,11 @@ public class Price extends Persistent {
     @Column(name="currency_code")
     private String currencyCode;
 
-    @Column(name="from_date")
-    private Date fromDate;
+    @Column(name="from_datetime")
+    private Timestamp fromDateTime;
 
-    @Column(name="to_date")
-    private Date toDate;
+    @Column(name="to_datetime")
+    private Timestamp toDateTime;
 
     @Override
     public Integer getId() {
@@ -73,19 +73,19 @@ public class Price extends Persistent {
         this.currencyCode = currencyCode;
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public Timestamp getFromDateTime() {
+        return fromDateTime;
     }
 
-    public void setFromDate(final Date fromDate) {
-        this.fromDate = fromDate;
+    public void setFromDateTime(final Timestamp fromDateTime) {
+        this.fromDateTime = fromDateTime;
     }
 
-    public Date getToDate() {
-        return toDate;
+    public Timestamp getToDateTime() {
+        return toDateTime;
     }
 
-    public void setToDate(final Date toDate) {
-        this.toDate = toDate;
+    public void setToDateTime(final Timestamp toDateTime) {
+        this.toDateTime = toDateTime;
     }
 }

@@ -1,6 +1,6 @@
 package io.tchepannou.k.travel.client.response;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class PriceDto {
     private Integer id;
@@ -8,8 +8,8 @@ public class PriceDto {
     private Integer productId;
     private Double amount;
     private String currencyCode;
-    private Date fromDate;
-    private Date toDate;
+    private Date fromDateTime;
+    private Date toDateTime;
 
     public Integer getId() {
         return id;
@@ -51,19 +51,19 @@ public class PriceDto {
         this.currencyCode = currencyCode;
     }
 
-    public Date getFromDate() {
-        return fromDate;
+    public Date getFromDateTime() {
+        return fromDateTime;
     }
 
-    public void setFromDate(final Date fromDate) {
-        this.fromDate = fromDate;
+    public void setFromDateTime(final Date fromDateTime) {
+        this.fromDateTime = fromDateTime;
     }
 
-    public Date getToDate() {
-        return toDate;
+    public Date getToDateTime() {
+        return toDateTime;
     }
 
-    public void setToDate(final Date toDate) {
-        this.toDate = toDate;
+    public void setToDateTime(final Date toDateTime) {
+        this.toDateTime = toDateTime;
     }
 }

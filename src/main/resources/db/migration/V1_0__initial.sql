@@ -54,8 +54,8 @@ CREATE TABLE T_PRICE (
 
   amount        DOUBLE,
   currency_code VARCHAR(3),
-  from_date     DATE,
-  to_date       DATE,
+  from_datetime DATETIME,
+  to_datetime   DATETIME,
 
   UNIQUE (price_type_fk, travel_product_fk),
   PRIMARY KEY (id)

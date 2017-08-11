@@ -1,5 +1,8 @@
 package io.tchepannou.k.travel.client.response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProductDto {
     private Integer id;
     private String name;
@@ -8,6 +11,7 @@ public class ProductDto {
     private Integer originCityId;
     private Integer destinationCityId;
     private ProductTypeDto productType;
+    private List<ScheduledTime> schedule = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -63,5 +67,13 @@ public class ProductDto {
 
     public void setProductType(final ProductTypeDto productType) {
         this.productType = productType;
+    }
+
+    public List<ScheduledTime> getSchedule() {
+        return schedule;
+    }
+
+    public void setSchedule(final List<ScheduledTime> schedule) {
+        this.schedule = schedule;
     }
 }

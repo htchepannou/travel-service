@@ -7,6 +7,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +19,7 @@ public class PriceSearchQueryBuilder {
         predicates.add(predicate("travel_product_fk", request.getProductIds()));
         predicates.add(predicate("UCASE(T.name)", request.getPriceTypeNames()));
         if (request.getDepartureDate() != null) {
-            predicates.add("(from_date IS NULL OR from_date<=?) AND (to_date IS NULL OR to_date>=?)");
+            predicates.add("(from_datetime IS NULL OR from_datetime<=?) AND (to_datetime IS NULL OR to_datetime>=?)");
         }
 
         final List<String> where = predicates.stream()
@@ -41,7 +42,7 @@ public class PriceSearchQueryBuilder {
         addAll(request.getProductIds(), args);
         addAll(request.getPriceTypeNames().stream().map(n -> n.toUpperCase()).collect(Collectors.toList()), args);
 
-        final String departureDate = request.getDepartureDate();
+        final Date departureDate = request.getDepartureDate();
         if (departureDate != null) {
             addAll(Arrays.asList(departureDate, departureDate), args);
         }

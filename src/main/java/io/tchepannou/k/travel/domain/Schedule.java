@@ -4,12 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.sql.Timestamp;
 
 @Entity
 @Table( name = "T_SCHEDULED_TRANSPORTATION")
 public class Schedule {
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 

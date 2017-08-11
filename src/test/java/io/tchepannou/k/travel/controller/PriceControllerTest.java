@@ -6,6 +6,7 @@ import io.tchepannou.k.travel.client.request.SetPriceRequest;
 import io.tchepannou.k.travel.client.response.SetPriceResponse;
 import io.tchepannou.k.travel.dao.PriceDao;
 import io.tchepannou.k.travel.domain.Price;
+import io.tchepannou.k.travel.util.Converters;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,8 +24,9 @@ import javax.sql.DataSource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.TimeZone;
+import java.util.Date;
 
+import static io.tchepannou.k.travel.util.Converters.toDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -68,8 +70,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.price.productId", is(100)))
                 .andExpect(jsonPath("$.price.amount", is(101.0)))
                 .andExpect(jsonPath("$.price.currencyCode", is("USD")))
-                .andExpect(jsonPath("$.price.fromDate", is("2017-01-02")))
-                .andExpect(jsonPath("$.price.toDate", is("2017-04-05")))
+                .andExpect(jsonPath("$.price.fromDateTime", is("2017-01-02T05:00:00+0000")))
+                .andExpect(jsonPath("$.price.toDateTime", is("2017-04-05T04:00:00+0000")))
 
                 .andExpect(jsonPath("$.price.priceType.id", is(1)))
                 .andExpect(jsonPath("$.price.priceType.name", is("ONE_WAY")))
@@ -97,8 +99,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[0].productId", is(300)))
                 .andExpect(jsonPath("$.prices[0].amount", is(311.0)))
                 .andExpect(jsonPath("$.prices[0].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[0].fromDate", is("2017-01-01")))
-                .andExpect(jsonPath("$.prices[0].toDate", is("2017-04-05")))
+                .andExpect(jsonPath("$.prices[0].fromDateTime", is("2017-01-01T05:00:00+0000")))
+                .andExpect(jsonPath("$.prices[0].toDateTime", is("2017-04-05T04:00:00+0000")))
                 .andExpect(jsonPath("$.prices[0].priceType.id", is(1)))
                 .andExpect(jsonPath("$.prices[0].priceType.name", is("ONE_WAY")))
 
@@ -106,8 +108,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[1].productId", is(300)))
                 .andExpect(jsonPath("$.prices[1].amount", is(312.0)))
                 .andExpect(jsonPath("$.prices[1].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[1].fromDate", is("2017-01-03")))
-                .andExpect(jsonPath("$.prices[1].toDate", is("2017-04-06")))
+                .andExpect(jsonPath("$.prices[1].fromDateTime", is("2017-01-03T05:00:00+0000")))
+                .andExpect(jsonPath("$.prices[1].toDateTime", is("2017-04-06T04:00:00+0000")))
                 .andExpect(jsonPath("$.prices[1].priceType.id", is(2)))
                 .andExpect(jsonPath("$.prices[1].priceType.name", is("RETURN")))
         ;
@@ -121,8 +123,8 @@ public class PriceControllerTest {
         final SetPriceRequest req = new SetPriceRequest();
         req.setAmount(150.0);
         req.setCurrencyCode("USD");
-        req.setFromDate("2017-01-02");
-        req.setToDate("2017-03-05");
+        req.setFromDateTime(toDate("2017-01-02", "yyyy-MM-dd"));
+        req.setToDateTime(toDate("2017-03-05", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -145,8 +147,8 @@ public class PriceControllerTest {
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         Price price = priceDao.findOne(resp.getId());
-        assertThat(df.format(price.getFromDate())).isEqualTo("2017-01-02");
-        assertThat(df.format(price.getToDate())).isEqualTo("2017-03-05");
+        assertThat(df.format(price.getFromDateTime())).isEqualTo("2017-01-02");
+        assertThat(df.format(price.getToDateTime())).isEqualTo("2017-03-05");
         assertThat(price.getCurrencyCode()).isEqualTo("USD");
         assertThat(price.getAmount()).isEqualTo(150.0);
         assertThat(price.getProductId()).isEqualTo(200);
@@ -161,8 +163,8 @@ public class PriceControllerTest {
         final SetPriceRequest req = new SetPriceRequest();
         req.setAmount(150.0);
         req.setCurrencyCode("USD");
-        req.setFromDate("2017-01-02");
-        req.setToDate("2017-03-05");
+        req.setFromDateTime(toDate("2017-01-02", "yyyy-MM-dd"));
+        req.setToDateTime(toDate("2017-03-05", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -185,8 +187,8 @@ public class PriceControllerTest {
         final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         Price price = priceDao.findOne(resp.getId());
-        assertThat(df.format(price.getFromDate())).isEqualTo("2017-01-02");
-        assertThat(df.format(price.getToDate())).isEqualTo("2017-03-05");
+        assertThat(df.format(price.getFromDateTime())).isEqualTo("2017-01-02");
+        assertThat(df.format(price.getToDateTime())).isEqualTo("2017-03-05");
         assertThat(price.getCurrencyCode()).isEqualTo("USD");
         assertThat(price.getAmount()).isEqualTo(150.0);
         assertThat(price.getProductId()).isEqualTo(200);
@@ -242,7 +244,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate("2017-02-02");
+        req.setDepartureDate(Converters.toDate("2017-02-02", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -267,7 +269,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate("2017-01-02");
+        req.setDepartureDate(Converters.toDate("2017-01-02", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -291,7 +293,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate("2017-05-16");
+        req.setDepartureDate(Converters.toDate("2017-05-16", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -315,7 +317,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate("2017-01-01");
+        req.setDepartureDate(Converters.toDate("2017-01-01", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -340,7 +342,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate("2020-01-01");
+        req.setDepartureDate(Converters.toDate("2020-01-01", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
