@@ -86,17 +86,19 @@ CREATE TABLE T_TRAVEL_ASSET (
 ) ENGINE = InnoDB;
 
 
+
 CREATE TABLE T_SCHEDULED_TRANSPORTATION (
   id                      INT     NOT NULL AUTO_INCREMENT,
 
-  travel_asset_fk         INT     REFERENCES T_TRAVEL_ASSET(id),
+  travel_asset_fk         INT     NOT NULL REFERENCES T_TRAVEL_ASSET(id),
+  travel_product_fk       INT     NOT NULL REFERENCES T_TRAVEL_PRODUCT(id),
 
   departure_datetime      DATETIME NOT NULL,
   arrival_datetime        DATETIME,
 
-  capacity                INT,
+  capacity                INT     NOT NULL,
 
-  UNIQUE (travel_asset_fk, departure_datetime),
+  UNIQUE (travel_asset_fk, travel_product_fk, departure_datetime),
   PRIMARY KEY (id)
 ) ENGINE = InnoDB;
 

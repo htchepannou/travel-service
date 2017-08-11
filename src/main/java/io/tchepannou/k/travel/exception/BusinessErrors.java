@@ -11,6 +11,7 @@ public enum BusinessErrors {
     INVALID_FROM_DATE_FORMAT("INVALID_FROM_DATE_FORMAT", "fromDate format is invalid. Expecting yyyy-MM-dd"),
     PRICE_NOT_FOUND("PRICE_NOT_FOUND", "Product not found"),
     PRODUCT_NOT_FOUND("PRODUCT_NOT_FOUND", "Product not found"),
+    SCHEDULE_NOT_FOUND("SCHEDULE_NOT_FOUND", "Schedule not found"),
     SCHEDULED_TIME_NOT_FOUND("SCHEDULED_TIME_NOT_FOUND", "Scheduled time not found")
     ;
 
