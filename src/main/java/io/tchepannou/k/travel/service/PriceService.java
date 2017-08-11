@@ -11,6 +11,7 @@ import io.tchepannou.k.travel.client.response.SearchPriceResponse;
 import io.tchepannou.k.travel.client.response.SetPriceResponse;
 import io.tchepannou.k.travel.dao.PriceDao;
 import io.tchepannou.k.travel.dao.PriceRowMapper;
+import io.tchepannou.k.travel.dao.SearchPriceQueryBuilder;
 import io.tchepannou.k.travel.dao.PriceTypeDao;
 import io.tchepannou.k.travel.dao.ProductDao;
 import io.tchepannou.k.travel.domain.Price;
@@ -39,7 +40,7 @@ public class PriceService {
     @Autowired PriceTypeDao priceTypeDao;
     @Autowired PriceDao priceDao;
     @Autowired ProductDao productDao;
-    @Autowired PriceSearchQueryBuilder queryBuilder;
+    @Autowired SearchPriceQueryBuilder queryBuilder;
     @Autowired DataSource dataSource;
 
     @Transactional

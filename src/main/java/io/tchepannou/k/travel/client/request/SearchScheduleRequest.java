@@ -1,36 +1,35 @@
 
 package io.tchepannou.k.travel.client.request;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 
 public class SearchScheduleRequest {
     @NotNull
-    private List<Integer> assetIds;
+    private Date departureDateTime;
 
     @NotNull
+    private Integer originCityId;
+
+    @NotNull
+    private Integer destinationCityId;
+
     private Integer travelProviderId;
 
-    @NotNull
-    private Integer productId;
-
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date startDate;
-
-    @NotNull
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date endDate;
-
-    public List<Integer> getAssetIds() {
-        return assetIds;
+    public Integer getOriginCityId() {
+        return originCityId;
     }
 
-    public void setAssetIds(final List<Integer> assetIds) {
-        this.assetIds = assetIds;
+    public void setOriginCityId(final Integer originCityId) {
+        this.originCityId = originCityId;
+    }
+
+    public Integer getDestinationCityId() {
+        return destinationCityId;
+    }
+
+    public void setDestinationCityId(final Integer destinationCityId) {
+        this.destinationCityId = destinationCityId;
     }
 
     public Integer getTravelProviderId() {
@@ -41,27 +40,11 @@ public class SearchScheduleRequest {
         this.travelProviderId = travelProviderId;
     }
 
-    public Integer getProductId() {
-        return productId;
+    public Date getDepartureDateTime() {
+        return departureDateTime;
     }
 
-    public void setProductId(final Integer productId) {
-        this.productId = productId;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(final Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(final Date endDate) {
-        this.endDate = endDate;
+    public void setDepartureDateTime(final Date departureDateTime) {
+        this.departureDateTime = departureDateTime;
     }
 }
