@@ -57,7 +57,8 @@ public class PriceControllerTest {
         new ResourceDatabasePopulator(
                 new ClassPathResource("/sql/clean.sql"),
                 new ClassPathResource("/sql/PriceController.sql")
-        ).execute(dataSource);}
+        ).execute(dataSource);
+    }
 
     @Test
     public void findById() throws Exception {
@@ -261,7 +262,6 @@ public class PriceControllerTest {
         ;
     }
 
-
     @Test
     public void searchPricesDepartureLowerBound () throws Exception{
         // Given
@@ -333,7 +333,6 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$..id", hasItems(2001, 2002)))
         ;
     }
-
 
     @Test
     public void searchPricesDepartureAboveUpperBound () throws Exception{

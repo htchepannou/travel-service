@@ -25,7 +25,7 @@ public class SqlPredicates {
         } else if (to == null){
             return String.format("%s <= ?", column);
         } else {
-            return String.format("%s BETWREN ? AND ?");
+            return String.format("%s BETWEEN ? AND ?", column);
         }
     }
 

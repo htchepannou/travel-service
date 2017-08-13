@@ -16,6 +16,8 @@ public class SearchScheduleRequest {
 
     private Integer travelProviderId;
 
+    private String assetTypeName;
+
     public Integer getOriginCityId() {
         return originCityId;
     }
@@ -46,5 +48,13 @@ public class SearchScheduleRequest {
 
     public void setDepartureDateTime(final Date departureDateTime) {
         this.departureDateTime = departureDateTime;
+    }
+
+    public String getAssetTypeName() {
+        return assetTypeName;
+    }
+
+    public void setAssetTypeName(final String assetTypeName) {
+        this.assetTypeName = assetTypeName;
     }
 }
