@@ -31,7 +31,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static io.tchepannou.k.travel.util.Converters.toTimestamp;
+import static io.tchepannou.k.travel.util.DateUtil.toTimestamp;
 
 @Component
 public class PriceService {

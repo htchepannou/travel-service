@@ -29,6 +29,9 @@ public class SqlPredicates {
         }
     }
 
+    public static String eq(String column, Object value){
+        return value == null ? null : String.format("%s=?", column);
+    }
 
     private static String toParams(List values){
         return Joiner.on(",").join(

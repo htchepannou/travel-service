@@ -6,8 +6,8 @@ public class ScheduleDto {
     private Integer id;
     private Integer productId;
     private Integer assetId;
-    private Date departureTime;
-    private Date arrivalTime;
+    private Date departureDateTime;
+    private Date arrivalDateTime;
     private Integer capacity;
 
     public Integer getId() {
@@ -42,19 +42,19 @@ public class ScheduleDto {
         this.capacity = capacity;
     }
 
-    public Date getDepartureTime() {
-        return departureTime;
+    public Date getDepartureDateTime() {
+        return departureDateTime;
     }
 
-    public void setDepartureTime(final Date departureTime) {
-        this.departureTime = departureTime;
+    public void setDepartureDateTime(final Date departureDateTime) {
+        this.departureDateTime = departureDateTime;
     }
 
-    public Date getArrivalTime() {
-        return arrivalTime;
+    public Date getArrivalDateTime() {
+        return arrivalDateTime;
     }
 
-    public void setArrivalTime(final Date arrivalTime) {
-        this.arrivalTime = arrivalTime;
+    public void setArrivalDateTime(final Date arrivalDateTime) {
+        this.arrivalDateTime = arrivalDateTime;
     }
 }

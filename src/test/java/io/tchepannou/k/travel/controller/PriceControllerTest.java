@@ -6,7 +6,7 @@ import io.tchepannou.k.travel.client.request.SetPriceRequest;
 import io.tchepannou.k.travel.client.response.SetPriceResponse;
 import io.tchepannou.k.travel.dao.PriceDao;
 import io.tchepannou.k.travel.domain.Price;
-import io.tchepannou.k.travel.util.Converters;
+import io.tchepannou.k.travel.util.DateUtil;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,9 +24,8 @@ import javax.sql.DataSource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
-import static io.tchepannou.k.travel.util.Converters.toDate;
+import static io.tchepannou.k.travel.util.DateUtil.toDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
@@ -244,7 +243,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate(Converters.toDate("2017-02-02", "yyyy-MM-dd"));
+        req.setDepartureDate(DateUtil.toDate("2017-02-02", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -269,7 +268,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate(Converters.toDate("2017-01-02", "yyyy-MM-dd"));
+        req.setDepartureDate(DateUtil.toDate("2017-01-02", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -293,7 +292,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate(Converters.toDate("2017-05-16", "yyyy-MM-dd"));
+        req.setDepartureDate(DateUtil.toDate("2017-05-16", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -317,7 +316,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate(Converters.toDate("2017-01-01", "yyyy-MM-dd"));
+        req.setDepartureDate(DateUtil.toDate("2017-01-01", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);
@@ -342,7 +341,7 @@ public class PriceControllerTest {
         final SearchPriceRequest req = new SearchPriceRequest();
         req.setProductIds(Arrays.asList(1000, 2000, 3000, 29990));
         req.setPriceTypeNames(Arrays.asList("ONE_WAY", "RETURN"));
-        req.setDepartureDate(Converters.toDate("2020-01-01", "yyyy-MM-dd"));
+        req.setDepartureDate(DateUtil.toDate("2020-01-01", "yyyy-MM-dd"));
 
         // When
         final String jsonRequest = mapper.writeValueAsString(req);

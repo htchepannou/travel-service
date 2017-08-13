@@ -29,4 +29,8 @@ public class SqlArguments {
         }
     }
 
+    public static List eq (Object value){
+        return value == null ? Collections.emptyList() : Collections.singletonList(value);
+    }
+
 }

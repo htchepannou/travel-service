@@ -1,13 +1,15 @@
 package io.tchepannou.k.travel.client.response;
 
-public class SearchScheduleResponse {
-    private ScheduleDto schedule;
+import java.util.List;
 
-    public ScheduleDto getSchedule() {
-        return schedule;
+public class SearchScheduleResponse {
+    private List<ScheduleDto> schedules;
+
+    public List<ScheduleDto> getSchedules() {
+        return schedules;
     }
 
-    public void setSchedule(final ScheduleDto schedule) {
-        this.schedule = schedule;
+    public void setSchedules(final List<ScheduleDto> schedules) {
+        this.schedules = schedules;
     }
 }
