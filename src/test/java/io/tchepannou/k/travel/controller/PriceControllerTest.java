@@ -25,6 +25,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
+import static io.tchepannou.k.travel.util.DateUtil.createDateFormat;
 import static io.tchepannou.k.travel.util.DateUtil.toDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.hasItems;
@@ -144,7 +145,7 @@ public class PriceControllerTest {
         SetPriceResponse resp = mapper.readValue(jsonResponse, SetPriceResponse.class);
 
         // Then
-        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        final DateFormat df = createDateFormat("yyyy-MM-dd");
 
         Price price = priceDao.findOne(resp.getId());
         assertThat(df.format(price.getFromDateTime())).isEqualTo("2017-01-02");
@@ -184,7 +185,7 @@ public class PriceControllerTest {
         SetPriceResponse resp = mapper.readValue(jsonResponse, SetPriceResponse.class);
 
         // Then
-        final DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        final DateFormat df = createDateFormat("yyyy-MM-dd");
 
         Price price = priceDao.findOne(resp.getId());
         assertThat(df.format(price.getFromDateTime())).isEqualTo("2017-01-02");

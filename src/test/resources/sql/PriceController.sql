@@ -24,8 +24,8 @@ INSERT INTO T_PRICE(id, price_type_fk, travel_product_fk, amount, currency_code,
 INSERT INTO T_TRAVEL_PRODUCT(id, travel_provider_fk, travel_product_type_fk, origin_city_fk, destination_city_fk, name)
     VALUES(1000, 1, 100, 101, 102, 'PROD1000');
 
-INSERT INTO T_PRICE(id, price_type_fk, travel_product_fk, amount, currency_code, from_datetime, to_datetime) VALUES(1001, 1, 1000, 1003, 'USD', '2017-01-02', '2017-04-05');
-INSERT INTO T_PRICE(id, price_type_fk, travel_product_fk, amount, currency_code, from_datetime, to_datetime) VALUES(1002, 2, 1000, 1005, 'USD', '2017-01-03', '2017-04-06');
+INSERT INTO T_PRICE(id, price_type_fk, travel_product_fk, amount, currency_code, from_datetime, to_datetime) VALUES(1001, 1, 1000, 1003, 'USD', '2017-01-02 08:30:00', '2017-04-05 08:30:00');
+INSERT INTO T_PRICE(id, price_type_fk, travel_product_fk, amount, currency_code, from_datetime, to_datetime) VALUES(1002, 2, 1000, 1005, 'USD', '2017-01-03 08:30:00', '2017-04-06 08:30:00');
 
 
 

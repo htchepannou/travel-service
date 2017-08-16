@@ -3,6 +3,7 @@ package io.tchepannou.k.travel.util;
 import com.google.common.base.Strings;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,9 +25,13 @@ public class DateUtil {
             return null;
         }
 
+        return createDateFormat(pattern).parse(value);
+    }
+
+    public static DateFormat createDateFormat(String pattern){
         SimpleDateFormat fmt = new SimpleDateFormat(pattern, Locale.US);
-//        fmt.setTimeZone(TimeZone.getTimeZone("UTC"));
-        return fmt.parse(value);
+        fmt.setTimeZone(getTimeZone());
+        return fmt;
     }
 
     public static Date toStartOfDay(Date date){
