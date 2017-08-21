@@ -30,6 +30,7 @@ import static io.tchepannou.k.travel.util.DateUtil.toDate;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -109,8 +110,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[1].productId", is(300)))
                 .andExpect(jsonPath("$.prices[1].amount", is(312.0)))
                 .andExpect(jsonPath("$.prices[1].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[1].fromDateTime", is("2017-01-03T00:00:00-0500")))
-                .andExpect(jsonPath("$.prices[1].toDateTime", is("2017-04-06T00:00:00-0400")))
+                .andExpect(jsonPath("$.prices[1].fromDateTime", startsWith("2017-01-03")))
+                .andExpect(jsonPath("$.prices[1].toDateTime", startsWith("2017-04-06")))
                 .andExpect(jsonPath("$.prices[1].priceType.id", is(2)))
                 .andExpect(jsonPath("$.prices[1].priceType.name", is("RETURN")))
         ;
