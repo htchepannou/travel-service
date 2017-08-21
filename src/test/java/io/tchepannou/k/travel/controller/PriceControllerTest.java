@@ -72,8 +72,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.price.productId", is(100)))
                 .andExpect(jsonPath("$.price.amount", is(101.0)))
                 .andExpect(jsonPath("$.price.currencyCode", is("USD")))
-                .andExpect(jsonPath("$.price.fromDateTime", is("2017-01-02T00:00:00-0500")))
-                .andExpect(jsonPath("$.price.toDateTime", is("2017-04-05T00:00:00-0400")))
+                .andExpect(jsonPath("$.price.fromDateTime", startsWith("2017-01-02")))
+                .andExpect(jsonPath("$.price.toDateTime", startsWith("2017-04-05")))
 
                 .andExpect(jsonPath("$.price.priceType.id", is(1)))
                 .andExpect(jsonPath("$.price.priceType.name", is("ONE_WAY")))
@@ -101,8 +101,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[0].productId", is(300)))
                 .andExpect(jsonPath("$.prices[0].amount", is(311.0)))
                 .andExpect(jsonPath("$.prices[0].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[0].fromDateTime", is("2017-01-01T00:00:00-0500")))
-                .andExpect(jsonPath("$.prices[0].toDateTime", is("2017-04-05T00:00:00-0400")))
+                .andExpect(jsonPath("$.prices[0].fromDateTime", startsWith("2017-01-01")))
+                .andExpect(jsonPath("$.prices[0].toDateTime", startsWith("2017-04-05")))
                 .andExpect(jsonPath("$.prices[0].priceType.id", is(1)))
                 .andExpect(jsonPath("$.prices[0].priceType.name", is("ONE_WAY")))
 
