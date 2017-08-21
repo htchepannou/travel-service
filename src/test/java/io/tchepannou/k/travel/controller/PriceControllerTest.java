@@ -71,8 +71,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.price.productId", is(100)))
                 .andExpect(jsonPath("$.price.amount", is(101.0)))
                 .andExpect(jsonPath("$.price.currencyCode", is("USD")))
-                .andExpect(jsonPath("$.price.fromDateTime", is("2017-01-02T05:00:00+0000")))
-                .andExpect(jsonPath("$.price.toDateTime", is("2017-04-05T04:00:00+0000")))
+                .andExpect(jsonPath("$.price.fromDateTime", is("2017-01-02T00:00:00-0500")))
+                .andExpect(jsonPath("$.price.toDateTime", is("2017-04-05T00:00:00-0400")))
 
                 .andExpect(jsonPath("$.price.priceType.id", is(1)))
                 .andExpect(jsonPath("$.price.priceType.name", is("ONE_WAY")))
@@ -100,8 +100,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[0].productId", is(300)))
                 .andExpect(jsonPath("$.prices[0].amount", is(311.0)))
                 .andExpect(jsonPath("$.prices[0].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[0].fromDateTime", is("2017-01-01T05:00:00+0000")))
-                .andExpect(jsonPath("$.prices[0].toDateTime", is("2017-04-05T04:00:00+0000")))
+                .andExpect(jsonPath("$.prices[0].fromDateTime", is("2017-01-01T00:00:00-0500")))
+                .andExpect(jsonPath("$.prices[0].toDateTime", is("2017-04-05T00:00:00-0400")))
                 .andExpect(jsonPath("$.prices[0].priceType.id", is(1)))
                 .andExpect(jsonPath("$.prices[0].priceType.name", is("ONE_WAY")))
 
@@ -109,8 +109,8 @@ public class PriceControllerTest {
                 .andExpect(jsonPath("$.prices[1].productId", is(300)))
                 .andExpect(jsonPath("$.prices[1].amount", is(312.0)))
                 .andExpect(jsonPath("$.prices[1].currencyCode", is("USD")))
-                .andExpect(jsonPath("$.prices[1].fromDateTime", is("2017-01-03T05:00:00+0000")))
-                .andExpect(jsonPath("$.prices[1].toDateTime", is("2017-04-06T04:00:00+0000")))
+                .andExpect(jsonPath("$.prices[1].fromDateTime", is("2017-01-03T00:00:00-0500")))
+                .andExpect(jsonPath("$.prices[1].toDateTime", is("2017-04-06T00:00:00-0400")))
                 .andExpect(jsonPath("$.prices[1].priceType.id", is(2)))
                 .andExpect(jsonPath("$.prices[1].priceType.name", is("RETURN")))
         ;

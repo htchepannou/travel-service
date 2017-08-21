@@ -7,15 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 
-import java.util.TimeZone;
-
 @Configuration
 public class JacksonConfiguration {
     @Bean
     public Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
         return new Jackson2ObjectMapperBuilder()
                 .simpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
-                .timeZone(TimeZone.getTimeZone("GMT"))
+                /*.timeZone(TimeZone.getTimeZone("GMT"))*/
                 .serializationInclusion(JsonInclude.Include.NON_NULL)
                 .featuresToDisable(
                         DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES,
