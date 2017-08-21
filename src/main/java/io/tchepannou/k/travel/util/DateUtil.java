@@ -30,7 +30,7 @@ public class DateUtil {
 
     public static DateFormat createDateFormat(String pattern){
         SimpleDateFormat fmt = new SimpleDateFormat(pattern, Locale.US);
-        fmt.setTimeZone(getTimeZone());
+//        fmt.setTimeZone(getTimeZone());
         return fmt;
     }
 
